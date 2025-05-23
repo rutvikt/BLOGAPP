@@ -2,6 +2,9 @@
 
 const User = require("../Model/userModel");
 const cloudinary = require('cloudinary').v2;
+const bcrypt =require("bcryptjs")
+const createTokenAndSaveCookie = require("../jwt/AuthToken");
+const { json } = require("express");
 
 
 
@@ -12,7 +15,7 @@ const register = async (req, res) => {
     }
 
     const {photo} =req.files;
-    const allowedFormates =["jpg","png","webp"]
+    const allowedFormates =["image/jpg","image/png","image/webp"]
     if (!allowedFormates.includes(photo.mimetype)) {
         return res.status(400).json({message:"only jpg,png,webp format"})
     }
@@ -44,11 +47,12 @@ const register = async (req, res) => {
         
     }
 
+    const hashPassword = await bcrypt.hash(password,10);
     // Create new user
     const newUser = new User({
       email,
       name,
-      password, // Note: You should hash the password before saving (see below)
+      password:hashPassword, // Note: You should hash the password before saving (see below)
       phoneNo,
       education,
       role,
@@ -60,22 +64,113 @@ const register = async (req, res) => {
 
     // Save user to database
     await newUser.save();
-
-    // Return success response (you might want to omit sensitive data)
-    res.status(201).json({ 
+if (newUser) {
+      const token= await createTokenAndSaveCookie(newUser._id,res);
+      console.log(token);
+      res.status(201).json({ 
       message: "User registered successfully",
-      user: {
-        id: newUser._id,
-        email: newUser.email,
-        name: newUser.name,
-        role: newUser.role
-      }
+     newUser,token:token
     });
+    }
 
+    
+    
+    // Return success response (you might want to omit sensitive data)
+    
+
+    
+   
   } catch (error) {
     console.error("Registration error:", error);
     res.status(500).json({ message: "Server error during registration" });
   }
 };
 
-module.exports = { register };
+const login = async (req, res) => {
+  const { email, password, role } = req.body;
+
+  try {
+    // 1. Check if all fields are provided
+    if (!email || !password || !role) {
+      return res.status(400).json({ message: 'Please provide email, password, and role' });
+    }
+
+    // 2. Find user by email and role
+    const user = await User.findOne({ email, role }).select('+password');;
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid credentials or role' });
+    }
+
+    // 3. Compare provided password with stored hash
+    
+    
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    // 4. Create token and set cookie
+    const token = await createTokenAndSaveCookie(user._id, res);
+
+    // 5. Send response (excluding sensitive data)
+    const userData = {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      // include other non-sensitive fields as needed
+    };
+
+    res.status(200).json({
+      success: true,
+      message: 'Login successful',
+      user: userData,
+      token
+    });
+
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ 
+      success: false,
+      message: 'An error occurred during login',
+      error: error.message 
+    });
+  }
+};
+
+const logout = (req, res) => {
+  try {
+    // Clear the token cookie
+    res.clearCookie('token', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // Use secure in production
+      sameSite: 'strict' // Protection against CSRF
+    });
+
+   
+
+    res.status(200).json({
+      success: true,
+      message: 'Logged out successfully'
+    });
+  } catch (error) {
+    console.error('Logout error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'An error occurred during logout',
+      error: error.message
+    });
+  }
+};
+
+
+const myProfile = async(req,res)=>{
+  const user= await req.user;
+  res.status(200).json(user);
+}
+
+const getAllAdmins= async(req,res)=>{
+  const admins = await User.find({role:"admin"})
+  res.status(200).json(admins)
+}
+module.exports = { register,login ,logout,myProfile,getAllAdmins};

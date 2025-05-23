@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const userRoutes = require('./routes/user.route.js');
 const fileUpload = require('express-fileupload');
 const cloudinary = require('cloudinary').v2;
+const blogRoutes = require("./routes/blog.route.js");
+const cookieParser = require('cookie-parser');
 
 const app = express();
 dotenv.config();
@@ -12,6 +14,7 @@ const port = process.env.PORT || 5001;
 const MONGO_URL = process.env.MONGO_URL;
 //middleware
 app.use(express.json()); 
+app.use(cookieParser())
 
 app.use(fileUpload({
   useTempFiles:true,
@@ -29,6 +32,7 @@ mongoose.connect(MONGO_URL)
   .catch(err => console.error("MongoDB error:", err));
 
 app.use("/api/users",userRoutes);
+app.use("/api/blogs",blogRoutes);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
