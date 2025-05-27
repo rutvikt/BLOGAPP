@@ -6,6 +6,8 @@ const jwt = require("jsonwebtoken");
 const isAuthenticated = async (req, res, next) => {
     try {
         const token = req.cookies.jwt;
+        console.log(req.cookies,"req.cookie");
+        
         console.log("middleware", token);
         if (!token) {
             return res.status(400).json({ error: "user not auth" })

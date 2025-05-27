@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+// Color variables
+$primary-bg: #FCE7C8;
+$secondary-bg: #B1C29E;
+$accent-color: #FADA7A;
+$button-color: #F0A04B;
+$text-color: #333;
+$light-text: #fff;
+
+// Font family
+$font-family: 'Open Sans', sans-serif;
+
+.register-container {
+  font-family: $font-family;
+  background-color: $primary-bg;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+
+  .register-form {
+    background-color: $light-text;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+
+    .register-title {
+      color: $text-color;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: $text-color;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-family: $font-family;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+
+        &:focus {
+          outline: none;
+          border-color: $secondary-bg;
+        }
+      }
+
+      select.form-control {
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 1em;
+      }
+    }
+
+    .register-button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: $button-color;
+      color: $light-text;
+      border: none;
+      border-radius: 5px;
+      font-family: $font-family;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 0.5rem;
+
+      &:hover {
+        background-color: darken($button-color, 10%);
+      }
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: $text-color;
+
+      a {
+        color: $button-color;
+        text-decoration: none;
+        font-weight: 600;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+// Responsive styles
+@media (max-width: 768px) {
+  .register-container {
+    padding: 1rem;
+
+    .register-form {
+      padding: 1.5rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .register-container {
+    .register-form {
+      padding: 1.25rem;
+
+      .register-title {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}

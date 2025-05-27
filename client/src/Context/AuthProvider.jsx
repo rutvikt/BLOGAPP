@@ -9,7 +9,10 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
-                const response = await axios.get("http://localhost:5001/api/blogs/all-blogs");
+                const response = await axios.get("http://localhost:5001/api/blogs/all-blogs", {
+  withCredentials: true
+});
+
                 console.log(response);
                 setBlogs(response.data)
 
