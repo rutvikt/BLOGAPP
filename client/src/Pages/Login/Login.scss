@@ -38,7 +38,7 @@ $font-family: 'Open Sans', sans-serif;
 
     .error-message {
       color: $error-color;
-      background-color: lighten($error-color, 35%);
+      background-color:$error-color, 35%;
       padding: 0.75rem;
       border-radius: 5px;
       margin-bottom: 1.5rem;
@@ -95,11 +95,11 @@ $font-family: 'Open Sans', sans-serif;
       margin-top: 0.5rem;
 
       &:hover:not(:disabled) {
-        background-color: darken($button-color, 10%);
+        background-color: $button-color, 10%;
       }
 
       &:disabled {
-        background-color: lighten($button-color, 15%);
+        background-color:$button-color, 15%;
         cursor: not-allowed;
       }
     }

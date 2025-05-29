@@ -23,7 +23,7 @@ const blogSchema = new Schema({
     type: String,
     required: [true, 'Category is required'],
     enum: {
-      values: ['Technology', 'Health', 'Travel', 'Food', 'Lifestyle', 'Education'],
+      values: ['Technology', 'Health', 'Travel', 'Food', 'Lifestyle', 'Education','Devotion'],
       message: 'Please select correct category'
     }
   },

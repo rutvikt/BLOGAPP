@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../Model/userModel");
 
-const createTokenAndSaveCookie = async (userId, res) => {
+const createTokenAndSaveCookie = (userId, res) => {
   const token = jwt.sign({ userId }, process.env.JWT_SECRET_KEY, {
     expiresIn: "15d"
   });
@@ -13,8 +13,7 @@ const createTokenAndSaveCookie = async (userId, res) => {
     maxAge: 15 * 24 * 60 * 60 * 1000, // 15 days
   });
 
-  await User.findByIdAndUpdate(userId, { token });
-  return token;
+  return token; // return for optional use
 };
 
 

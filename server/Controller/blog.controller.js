@@ -76,7 +76,7 @@ const createBlog = async (req, res) => {
         url: cloudinaryResponse.secure_url
       },
       adminName: req?.user?.name,
-      adminPhoto: req?.user?.photo, // From user profile, not file upload
+      adminPhoto: req?.user?.photo?.url, // From user profile, not file upload
       createdBy: req?.user?._id,
       // education: education || 'Graduation'
     };

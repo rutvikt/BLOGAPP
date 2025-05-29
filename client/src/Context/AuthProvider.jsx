@@ -10,10 +10,11 @@ export const AuthProvider = ({ children }) => {
         const fetchBlogs = async () => {
             try {
                 const response = await axios.get("http://localhost:5001/api/blogs/all-blogs", {
-  withCredentials: true
+  withCredentials: true,
 });
 
-                console.log(response);
+
+                console.log(response,"context");
                 setBlogs(response.data)
 
             } catch (error) {
@@ -22,7 +23,7 @@ export const AuthProvider = ({ children }) => {
             }
         };
         fetchBlogs();
-    }, [])
+    }, []);
     return (
         <AuthContext.Provider value={{ blogs }}>{children}</AuthContext.Provider>
     )

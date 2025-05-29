@@ -6,10 +6,13 @@ const fileUpload = require('express-fileupload');
 const cloudinary = require('cloudinary').v2;
 const blogRoutes = require("./routes/blog.route.js");
 const cookieParser = require('cookie-parser');
+
+
 const cors = require("cors")
 
 const app = express();
-dotenv.config();
+require('dotenv').config();
+
 
 const port = process.env.PORT || 5001;
 const MONGO_URL = process.env.MONGO_URL;

@@ -28,21 +28,23 @@ const Login = () => {
     setError('');
 
     try {
-      const response = await axios.post(
-        'http://localhost:5001/api/users/login',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        },{ withCredentials: true }
-      );
+     const response = await axios.post(
+  'http://localhost:5001/api/users/login',
+  formData,
+  {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    withCredentials: true, 
+  }
+);
+
 
       // Handle successful login
       console.log('Login successful:', response.data);
       toast.success(response.data.message||"user Login Succesfully");
       localStorage.setItem('token', response.data.token);
-      navigate('/dashboard'); // Redirect to dashboard after login
+      navigate('/'); // Redirect to dashboard after login
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed. Please try again.');
       console.error('Login error:', err);
