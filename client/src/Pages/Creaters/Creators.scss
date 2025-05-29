@@ -1,0 +1,201 @@
+// Variables
+$primary-color: #B1C29E;
+$secondary-color: #FADA7A;
+$accent-color: #F0A04B;
+$text-color: #333;
+$light-bg: #f9f9f9;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Styles
+.creator-page {
+  padding: 2rem;
+  min-height: 100vh;
+  background-color: $light-bg;
+  
+  &.loading {
+    @include flex-center;
+    height: 100vh;
+    
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid $primary-color;
+      border-top-color: $accent-color;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+  }
+}
+
+.creator-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  
+  h1 {
+    color: $text-color;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+    display: inline-block;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: $accent-color;
+      border-radius: 2px;
+    }
+  }
+  
+  p {
+    color: lighten($text-color, 20%);
+    font-size: 1.1rem;
+  }
+}
+
+.creator-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.creator-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  }
+  
+  .card-image {
+    height: 250px;
+    overflow: hidden;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    &:hover img {
+      transform: scale(1.1);
+    }
+  }
+  
+  .card-content {
+    padding: 1.5rem;
+    
+    h3 {
+      margin: 0;
+      color: $text-color;
+      font-size: 1.5rem;
+    }
+    
+    .role {
+      color: $accent-color;
+      font-weight: 600;
+      margin: 0.5rem 0 1rem;
+    }
+    
+    .contact-info {
+      margin: 1.5rem 0;
+      
+      .info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.8rem;
+        
+        .icon {
+          margin-right: 10px;
+          font-size: 1.2rem;
+        }
+      }
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 10px;
+      
+      .social-btn {
+        flex: 1;
+        padding: 0.5rem;
+        border: none;
+        border-radius: 5px;
+        background: $primary-color;
+        color: white;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        
+        &:hover {
+          background: darken($primary-color, 10%);
+        }
+        
+        &:last-child {
+          background: $secondary-color;
+          color: $text-color;
+          
+          &:hover {
+            background: darken($secondary-color, 10%);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .creator-page {
+    padding: 1rem;
+  }
+  
+  .creator-header {
+    h1 {
+      font-size: 2rem;
+    }
+    
+    p {
+      font-size: 1rem;
+    }
+  }
+  
+  .creator-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .creator-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .creator-card {
+    .card-content {
+      .social-links {
+        flex-direction: column;
+      }
+    }
+  }
+}

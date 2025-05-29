@@ -1,0 +1,186 @@
+// Variables
+$primary-color: #B1C29E;
+$secondary-color: #FADA7A;
+$accent-color: #F0A04B;
+$text-color: #333;
+$light-bg: #f9f9f9;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Styles
+.contact-page {
+  padding: 4rem 2rem;
+  min-height: 100vh;
+  background-color: $light-bg;
+  @include flex-center;
+
+  .contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    max-width: 1200px;
+    width: 100%;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 2rem;
+  }
+
+  .contact-info {
+    padding: 2rem;
+    background: linear-gradient(135deg, $primary-color, $primary-color, 10%);
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: $secondary-color;
+        border-radius: 2px;
+      }
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .contact-details {
+      p {
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+
+        &::before {
+          content: '•';
+          margin-right: 10px;
+          color: $secondary-color;
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+
+  .contact-form {
+    padding: 2rem;
+
+    h1 {
+      font-size: 2rem;
+      color: $text-color;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        label {
+          font-weight: 600;
+          color: $text-color;
+        }
+
+        input,
+        textarea {
+          padding: 0.8rem 1rem;
+          border: 2px solid #e0e0e0;
+          border-radius: 6px;
+          font-size: 1rem;
+          transition: border-color 0.3s;
+
+          &:focus {
+            outline: none;
+            border-color: $accent-color;
+          }
+        }
+
+        textarea {
+          resize: vertical;
+          min-height: 120px;
+        }
+      }
+
+      button {
+        background-color: $accent-color;
+        color: white;
+        border: none;
+        padding: 1rem;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 1rem;
+
+        &:hover {
+          background-color: $accent-color, 10%;
+        }
+
+        &:disabled {
+          background-color: #cccccc;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 992px) {
+  .contact-page {
+    padding: 2rem 1rem;
+
+    .contact-container {
+      grid-template-columns: 1fr;
+      padding: 1rem;
+    }
+
+    .contact-info {
+      padding: 1.5rem;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .contact-page {
+    padding: 1rem;
+
+    .contact-container {
+      padding: 1rem;
+    }
+
+    .contact-info,
+    .contact-form {
+      padding: 1rem;
+    }
+
+    .contact-info h1 {
+      font-size: 2rem;
+    }
+  }
+}

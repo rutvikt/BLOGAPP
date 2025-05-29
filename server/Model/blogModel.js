@@ -31,7 +31,7 @@ const blogSchema = new Schema({
     type: String,
     required: [true, 'About section is required'],
     minlength: [50, 'About should be at least 50 characters'],
-    maxlength: [200, 'About cannot exceed 200 characters']
+    maxlength: [300, 'About cannot exceed 200 characters']
   },
   created: {
     type: Date,
