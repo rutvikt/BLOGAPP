@@ -6,6 +6,7 @@ import MyBlogs from './MyBlogs';
 import MyProfile from './MyProfile';
 import Home from '../../Componets/Home/Home';
 import './Dashboard.scss';
+import CreateBlog from './CreateBlog';
 
 const Dashboard = () => {
   const { profile, isAuthenticated } = useAuth();
@@ -25,7 +26,7 @@ const Dashboard = () => {
       case 'myBlogs':
         return <MyBlogs />;
       case 'updateBlog':
-        return <UpdateBlog />;
+        return <CreateBlog />;
       default:
         return <Home />;
     }

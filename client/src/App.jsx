@@ -13,6 +13,7 @@ import Dashboard from './Pages/Dashboard/Dashboard';
 import  { Toaster } from 'react-hot-toast';
 import Creator from './Pages/Creaters/Creator'
 import { useAuth } from './Context/AuthProvider';
+import UpdateBlog from './Pages/Dashboard/UpdateBlog';
 function App() {
   const location = useLocation();
   const hideNavbarFooter=["/dashboard","/login","register"].includes(location.pathname)
@@ -35,6 +36,7 @@ function App() {
       <Route path="/login" element={<Login/>}/>
       <Route path="/register" element={<Register/>}/>
       <Route path="/dashboard" element={<Dashboard/>}/>
+      <Route path='/update-blog/:id' element={<UpdateBlog/>}/>
     </Routes>
     <Toaster/>
     {!hideNavbarFooter && <Footer/>}

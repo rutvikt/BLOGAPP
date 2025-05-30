@@ -19,8 +19,10 @@ export const AuthProvider = ({ children }) => {
 
 
                 console.log(data);
-                setProfile(data)
+                setProfile(data);
                 setAuthenicated(true);  
+                
+                
                
             } catch (error) {
                 console.log(error);
@@ -46,7 +48,7 @@ export const AuthProvider = ({ children }) => {
         fetchProfile();
     }, []);
     return (
-        <AuthContext.Provider value={{ blogs, profile, isAuthenticated }}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ blogs, profile, isAuthenticated ,setAuthenicated}}>{children}</AuthContext.Provider>
     )
 }
 

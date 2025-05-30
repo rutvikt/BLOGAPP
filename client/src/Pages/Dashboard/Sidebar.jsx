@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useAuth } from '../../Context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import './Sidebar.scss';
+import axios from 'axios';
 
 const Sidebar = ({ activeComponent = 'myBlogs', setActiveComponent }) => {
-  const { profile, isAuthenticated, logout } = useAuth();
+  const { profile, isAuthenticated ,setAuthenicated} = useAuth();
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -13,8 +14,19 @@ const Sidebar = ({ activeComponent = 'myBlogs', setActiveComponent }) => {
     setIsMobileMenuOpen(false);
   };
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout =async () => {
+    console.log(isAuthenticated);
+    try {
+      
+      const {data}=await axios.get("http://localhost:5001/api/users/logout",{withCredentials:true});
+      // setAuthenicated(false)
+      console.log(data);
+      setAuthenicated(false);
+    } catch (error) {
+      console.log(error);
+      alert(error.response.message,"failed to logout")
+      
+    }
     navigate('/login');
   };
 
@@ -98,7 +110,7 @@ const Sidebar = ({ activeComponent = 'myBlogs', setActiveComponent }) => {
             aria-current={activeComponent === 'updateBlog' ? 'page' : undefined}
           >
             <span className="nav-icon">✏️</span>
-            <span className="nav-text">Update Blog</span>
+            <span className="nav-text">Create Blog</span>
           </button>
           
           <div className="nav-divider" />

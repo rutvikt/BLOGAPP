@@ -1,0 +1,194 @@
+// MyProfile.scss
+
+// Variables
+$primary-color: #667eea;
+$secondary-color: #5a6fd1;
+$light-color: #f5f7fa;
+$dark-color: #333;
+$gray-color: #666;
+$error-color: #c62828;
+$error-bg: #ffebee;
+$white: #fff;
+
+// Mixins
+@mixin flex-center($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin card-shadow {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+@mixin transition($property: all, $duration: 0.3s) {
+  transition: $property $duration ease;
+}
+
+// Profile Container
+.profile-container {
+  @include flex-center(column);
+  min-height: 80vh;
+  padding: 2rem;
+  background-color: $light-color;
+  
+  h2 {
+    color: $dark-color;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+}
+
+// Profile Details
+.profile-details {
+  @include card-shadow;
+  background: $white;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 600px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+// Profile Header
+.profile-header {
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, $primary-color 0%, #764ba2 100%);
+  color: $white;
+
+  &__avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid $white;
+    margin-bottom: 1rem;
+
+    &--default {
+      @extend .profile-header__avatar;
+      background: rgba($white, 0.2);
+      @include flex-center;
+      color: $white;
+    }
+  }
+
+  h2 {
+    margin: 0.5rem 0;
+    font-size: 1.8rem;
+    color: $white;
+  }
+}
+
+.profile-role {
+  display: inline-block;
+  background: rgba($white, 0.2);
+  padding: 0.3rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+}
+
+// Profile Content
+.profile-content {
+  padding: 2rem;
+}
+
+.profile-info {
+  p {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: $dark-color;
+
+    strong {
+      color: $gray-color;
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+.profile-photo {
+  text-align: center;
+  margin-bottom: 1.5rem;
+
+  img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid $primary-color;
+  }
+}
+
+// Profile Actions
+.profile-actions {
+  padding: 0 2rem 2rem;
+  text-align: center;
+
+  &__button {
+    background: $primary-color;
+    color: $white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    @include transition;
+
+    &:hover {
+      background: $secondary-color;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba($primary-color, 0.4);
+    }
+  }
+}
+
+// Loading States
+.loading-container {
+  @include flex-center(column);
+  height: 50vh;
+
+  &__spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid $primary-color;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+}
+
+// Error States
+.error-container {
+  @include flex-center;
+  padding: 2rem;
+
+  &__alert {
+    background: $error-bg;
+    color: $error-color;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.no-data {
+  text-align: center;
+  padding: 2rem;
+  color: $gray-color;
+}
+
+// Animations
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

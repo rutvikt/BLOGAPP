@@ -1,0 +1,224 @@
+// Variables
+$primary: #6C63FF;
+$secondary: #4D44DB;
+$accent: #FF6584;
+$light: #F8F9FA;
+$dark: #343A40;
+$gray: #6C757D;
+$light-gray: #E9ECEF;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin transition($property: all, $duration: 0.3s, $easing: ease) {
+  transition: $property $duration $easing;
+}
+
+// Base Styles
+.update-blog {
+  @include flex-center;
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: #f5f7ff;
+
+  &__card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba($primary, 0.1);
+    width: 100%;
+    max-width: 900px;
+    padding: 2.5rem;
+    position: relative;
+  }
+
+  &__title {
+    color: $dark;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  &__back-button {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    background: $light-gray;
+    color: $gray;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    @include flex-center;
+    gap: 0.5rem;
+    cursor: pointer;
+    @include transition;
+
+    &:hover {
+      background: $light-gray, 5%;
+    }
+  }
+
+  &__form {
+    .form-group {
+      margin-bottom: 1.5rem;
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: $dark;
+      }
+
+      input,
+      textarea,
+      select {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border: 1px solid $light-gray;
+        border-radius: 8px;
+        font-size: 1rem;
+        @include transition;
+
+        &:focus {
+          outline: none;
+          border-color: $primary;
+          box-shadow: 0 0 0 3px rgba($primary, 0.2);
+        }
+      }
+
+      textarea {
+        min-height: 200px;
+        resize: vertical;
+      }
+    }
+
+    .form-row {
+      display: flex;
+      gap: 2rem;
+
+      .form-group {
+        flex: 1;
+      }
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+    }
+  }
+
+  &__submit {
+    background: $primary;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    @include flex-center;
+    gap: 0.5rem;
+    margin: 1rem auto 0;
+    cursor: pointer;
+    @include transition;
+
+    &:hover {
+      background: $secondary;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba($primary, 0.3);
+    }
+  }
+}
+
+// Image Upload Component
+.image-upload {
+  border: 2px dashed $light-gray;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  @include transition;
+
+  &:hover {
+    border-color: $primary;
+  }
+
+  &__label {
+    @include flex-center;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: $gray;
+    cursor: pointer;
+    padding: 1rem;
+
+    svg {
+      font-size: 1.5rem;
+      color: $primary;
+    }
+  }
+
+  &__preview {
+    position: relative;
+
+    img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: contain;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__replace {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    @include flex-center;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+
+  &__status {
+    color: $gray;
+    font-style: italic;
+    margin-top: 0.5rem;
+  }
+}
+
+// Loading State
+.loading-container {
+  @include flex-center;
+  height: 100vh;
+}
+
+.spinner {
+  border: 4px solid rgba($primary, 0.1);
+  border-radius: 50%;
+  border-top: 4px solid $primary;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Responsive Adjustments
+@media (max-width: 768px) {
+  .update-blog {
+    padding: 1rem;
+    
+    &__card {
+      padding: 1.5rem;
+    }
+  }
+}
