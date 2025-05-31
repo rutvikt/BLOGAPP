@@ -7,9 +7,9 @@ const createTokenAndSaveCookie = (userId, res) => {
   });
 
   res.cookie("jwt", token, {
-    httpOnly: true,
+    httpOnly: false,
     secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+    sameSite: "none",
     maxAge: 15 * 24 * 60 * 60 * 1000, // 15 days
   });
 
