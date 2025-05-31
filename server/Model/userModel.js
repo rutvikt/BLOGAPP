@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
   phoneNo: {
     type: String,
     required: [true, "Please provide a phone number"],
-    unique: true,
+    // unique: true,
     validate: {
       validator: function(v) {
         return /^[0-9]{10,15}$/.test(v); // Basic phone number validation

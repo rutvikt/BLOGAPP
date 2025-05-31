@@ -37,7 +37,7 @@ const handleLogout = async () => {
   }
 };
 
-  // if (!isAuthenticated) return null;
+  if (!isAuthenticated) return null;
 
   return (
     <>

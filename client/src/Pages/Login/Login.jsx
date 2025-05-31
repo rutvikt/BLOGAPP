@@ -3,8 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import './Login.scss';
+import { useAuth } from '../../Context/AuthProvider';
 
 const Login = () => {
+   const{setAuthenicated}=useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -44,6 +46,7 @@ const Login = () => {
       console.log('Login successful:', response.data);
       toast.success(response.data.message||"user Login Succesfully");
       localStorage.setItem('token', response.data.token);
+      setAuthenicated(true)
       navigate('/'); // Redirect to dashboard after login
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed. Please try again.');

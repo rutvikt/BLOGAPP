@@ -5,6 +5,8 @@ import Devotional from "../../Home/Devotional"
 import Creators from '../../Home/Creators';
 
 const Home = () => {
+
+  //  if (!isAuthenticated) return null;
   return (
    <>
    <Hero/>

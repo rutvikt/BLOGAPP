@@ -80,7 +80,7 @@ const BlogDetails = () => {
           <div className="author-info">
             <div className="author-image">
               <img 
-                src={blog.adminPhoto.url} 
+                src={blog.adminPhoto?.url} 
                 alt={blog.adminName} 
               />
             </div>

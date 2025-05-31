@@ -46,9 +46,11 @@ const handleSubmit = async (e) => {
       }
     );
     console.log(response);
-    toast.success(response.data.message,"User registered successfully");
+   toast.success(response.data.message || "User registered successfully");
+
   } catch (error) {
-    toast.error(error.response?.data || error.message);
+    toast.error(error.response?.data.message || error.message);
+
     console.log(error);
     
   }
