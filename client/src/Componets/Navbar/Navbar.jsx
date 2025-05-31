@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.scss';
+import { useAuth } from '../../Context/AuthProvider';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const{setAuthenicated,isAuthenticated,profile} =useAuth();
+  console.log(profile?.user);
+  
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);

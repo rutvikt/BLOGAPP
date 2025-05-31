@@ -14,23 +14,30 @@ const Sidebar = ({ activeComponent = 'myBlogs', setActiveComponent }) => {
     setIsMobileMenuOpen(false);
   };
 
-  const handleLogout =async () => {
-    console.log(isAuthenticated);
-    try {
-      
-      const {data}=await axios.get("http://localhost:5001/api/users/logout",{withCredentials:true});
-      // setAuthenicated(false)
-      console.log(data);
-      setAuthenicated(false);
-    } catch (error) {
-      console.log(error);
-      alert(error.response.message,"failed to logout")
-      
-    }
-    navigate('/login');
-  };
+const handleLogout = async () => {
+  console.log(isAuthenticated);
+  try {
+    const { data } = await axios.get("http://localhost:5001/api/users/logout", {
+      withCredentials: true, // Important to send cookies
+    });
 
-  if (!isAuthenticated) return null;
+    console.log(data); // Should log: { success: true, message: 'Logged out successfully' }
+
+    // Clear client-side auth state
+    setAuthenicated(false);
+
+    // Optional: Clear any localStorage/sessionStorage if used
+    // localStorage.removeItem('token'); // If you're using this
+
+    // Redirect to login page
+    navigate('/login');
+  } catch (error) {
+    console.log(error);
+    alert("Failed to logout: " + error?.response?.data?.message || error.message);
+  }
+};
+
+  // if (!isAuthenticated) return null;
 
   return (
     <>

@@ -1,194 +1,261 @@
-// MyProfile.scss
+// Color variables
+$primary-color: #F0A04B;
+$secondary-color: #FADA7A;
+$background-color: #B1C29E;
+$light-color: #f8f9fa;
+$dark-color: #333333;
+$error-color: #e74c3c;
+$success-color: #2ecc71;
 
-// Variables
-$primary-color: #667eea;
-$secondary-color: #5a6fd1;
-$light-color: #f5f7fa;
-$dark-color: #333;
-$gray-color: #666;
-$error-color: #c62828;
-$error-bg: #ffebee;
-$white: #fff;
-
-// Mixins
-@mixin flex-center($direction: row) {
-  display: flex;
-  flex-direction: $direction;
-  justify-content: center;
-  align-items: center;
-}
-
-@mixin card-shadow {
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-@mixin transition($property: all, $duration: 0.3s) {
-  transition: $property $duration ease;
-}
-
-// Profile Container
-.profile-container {
-  @include flex-center(column);
-  min-height: 80vh;
+.my-blogs-container {
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 2rem;
-  background-color: $light-color;
-  
-  h2 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  h1 {
     color: $dark-color;
-    margin-bottom: 2rem;
     text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.2rem;
+  }
+
+  .no-blogs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem;
+    background-color: $light-color;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+    img {
+      width: 200px;
+      height: auto;
+      margin-bottom: 1.5rem;
+    }
+
+    h3 {
+      color: $dark-color;
+      margin-bottom: 0.5rem;
+    }
+
+    .create-btn {
+      background-color: $primary-color;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      margin-top: 1.5rem;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: darken($primary-color, 10%);
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  .blogs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 1rem;
+
+    .blog-card {
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba($primary-color, 0.15);
+      }
+
+      .blog-image {
+        height: 200px;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.5s ease;
+        }
+
+        &:hover img {
+          transform: scale(1.05);
+        }
+      }
+
+      .blog-content {
+        padding: 1.5rem;
+
+        .category-tag {
+          display: inline-block;
+          padding: 0.3rem 0.8rem;
+          background-color: $secondary-color;
+          color: $dark-color;
+          border-radius: 20px;
+          font-size: 0.75rem;
+          font-weight: 600;
+          margin-bottom: 0.8rem;
+        }
+
+        h2 {
+          color: $dark-color;
+          margin: 0 0 0.5rem;
+          font-size: 1.3rem;
+          line-height: 1.4;
+        }
+
+        .admin-name {
+          color: lighten($dark-color, 20%);
+          font-size: 0.9rem;
+          margin: 0 0 1rem;
+        }
+
+        .blog-about {
+          color: lighten($dark-color, 10%);
+          margin: 0 0 1.5rem;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        .blog-actions {
+          display: flex;
+          gap: 0.8rem;
+
+          .update-btn, .delete-btn {
+            flex: 1;
+            padding: 0.6rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            text-decoration: none;
+          }
+
+          .update-btn {
+            background-color: $secondary-color;
+            color: $dark-color;
+            border: none;
+
+            &:hover {
+              background-color: darken($secondary-color, 10%);
+            }
+          }
+
+          .delete-btn {
+            background-color: $error-color;
+            color: white;
+            border: none;
+
+            &:hover {
+              background-color: darken($error-color, 10%);
+            }
+          }
+        }
+      }
+    }
   }
 }
 
-// Profile Details
-.profile-details {
-  @include card-shadow;
-  background: $white;
-  border-radius: 16px;
-  width: 100%;
-  max-width: 600px;
-  overflow: hidden;
+.loading-container {
   display: flex;
   flex-direction: column;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-}
-
-// Profile Header
-.profile-header {
-  text-align: center;
-  padding: 2rem;
-  background: linear-gradient(135deg, $primary-color 0%, #764ba2 100%);
-  color: $white;
-
-  &__avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid $white;
-    margin-bottom: 1rem;
-
-    &--default {
-      @extend .profile-header__avatar;
-      background: rgba($white, 0.2);
-      @include flex-center;
-      color: $white;
-    }
-  }
-
-  h2 {
-    margin: 0.5rem 0;
-    font-size: 1.8rem;
-    color: $white;
-  }
-}
-
-.profile-role {
-  display: inline-block;
-  background: rgba($white, 0.2);
-  padding: 0.3rem 1rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  text-transform: capitalize;
-}
-
-// Profile Content
-.profile-content {
-  padding: 2rem;
-}
-
-.profile-info {
-  p {
-    margin-bottom: 1rem;
-    font-size: 1rem;
-    color: $dark-color;
-
-    strong {
-      color: $gray-color;
-      margin-right: 0.5rem;
-    }
-  }
-}
-
-.profile-photo {
-  text-align: center;
-  margin-bottom: 1.5rem;
-
-  img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid $primary-color;
-  }
-}
-
-// Profile Actions
-.profile-actions {
-  padding: 0 2rem 2rem;
-  text-align: center;
-
-  &__button {
-    background: $primary-color;
-    color: $white;
-    border: none;
-    padding: 0.8rem 2rem;
-    border-radius: 30px;
-    font-size: 1rem;
-    cursor: pointer;
-    @include transition;
-
-    &:hover {
-      background: $secondary-color;
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba($primary-color, 0.4);
-    }
-  }
-}
-
-// Loading States
-.loading-container {
-  @include flex-center(column);
+  align-items: center;
+  justify-content: center;
   height: 50vh;
 
-  &__spinner {
-    border: 4px solid rgba(0, 0, 0, 0.1);
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba($primary-color, 0.3);
     border-radius: 50%;
-    border-top: 4px solid $primary-color;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
+    border-top-color: $primary-color;
+    animation: spin 1s ease-in-out infinite;
     margin-bottom: 1rem;
   }
-}
 
-// Error States
-.error-container {
-  @include flex-center;
-  padding: 2rem;
-
-  &__alert {
-    background: $error-bg;
-    color: $error-color;
-    padding: 1rem 2rem;
-    border-radius: 8px;
-    max-width: 600px;
-    width: 100%;
-    text-align: center;
+  p {
+    color: $dark-color;
+    font-size: 1.1rem;
   }
 }
 
-.no-data {
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
   text-align: center;
-  padding: 2rem;
-  color: $gray-color;
+
+  .error-message {
+    color: $error-color;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: lighten($error-color, 40%);
+    border-radius: 8px;
+    max-width: 80%;
+  }
+
+  .retry-btn {
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
 }
 
-// Animations
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  to { transform: rotate(360deg); }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .my-blogs-container {
+    padding: 1.5rem;
+
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    .blogs-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .my-blogs-container {
+    padding: 1rem;
+
+    .no-blogs {
+      padding: 1.5rem;
+
+      img {
+        width: 150px;
+      }
+    }
+  }
 }

@@ -13,15 +13,24 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                 const { data } = await axios.get("http://localhost:5001/api/users/my-profile", {
-                    withCredentials: true, headers: { 'content-type': 'application/json' }
-                });
-
-
-                console.log(data);
-                setProfile(data);
-                setAuthenicated(true);  
+                 let token = localStorage.getItem("jwt"); // Retrieve the token directly from the localStorage (Go to login.jsx)
+        console.log(token);
+        if (token) {
+          const { data } = await axios.get(
+            "http://localhost:4001/api/users/my-profile",
+            {
+              withCredentials: true,
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          console.log(data.user);
+          setProfile(data.user);
+          setAuthenicated(true);
+        }
                 
+         
                 
                
             } catch (error) {
@@ -48,7 +57,7 @@ export const AuthProvider = ({ children }) => {
         fetchProfile();
     }, []);
     return (
-        <AuthContext.Provider value={{ blogs, profile, isAuthenticated ,setAuthenicated}}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ blogs, profile, setProfile,isAuthenticated ,setAuthenicated}}>{children}</AuthContext.Provider>
     )
 }
 

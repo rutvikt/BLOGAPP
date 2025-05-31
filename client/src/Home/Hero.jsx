@@ -11,7 +11,7 @@ const Hero = () => {
             <div className="hero-container">
                 {blogs && blogs.length > 0 ? (
                     blogs.slice(0, 4).map((blog) => (
-                        <Link to={`/blog/${blog.id}`} key={blog.id} className="hero-card">
+                        <Link to={`/blog/${blog._id}`} key={blog.id} className="hero-card">
                             <div className="card-image">
                                 <img 
                                     src={blog.blogImage.url} 

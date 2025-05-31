@@ -13,9 +13,9 @@ const Dashboard = () => {
   const [activeComponent, setActiveComponent] = useState('home');
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
-  if (!isAuthenticated) {
-    return <div className="auth-message">Please login to access the dashboard</div>;
-  }
+  // if (!isAuthenticated) {
+  //   return <div className="auth-message">Please login to access the dashboard</div>;
+  // }
 
   const renderComponent = () => {
     switch (activeComponent) {

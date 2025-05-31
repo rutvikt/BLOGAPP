@@ -14,13 +14,14 @@ import  { Toaster } from 'react-hot-toast';
 import Creator from './Pages/Creaters/Creator'
 import { useAuth } from './Context/AuthProvider';
 import UpdateBlog from './Pages/Dashboard/UpdateBlog';
+import BlogDetails from './Pages/BlogDetails/BlogDetails';
 function App() {
   const location = useLocation();
   const hideNavbarFooter=["/dashboard","/login","register"].includes(location.pathname)
 
 
   const{blogs}=useAuth();
-  console.log(blogs);
+
   
   return (
     <>
@@ -35,6 +36,7 @@ function App() {
        <Route path="/creators" element={<Creator/>}/>
       <Route path="/login" element={<Login/>}/>
       <Route path="/register" element={<Register/>}/>
+       <Route path="/blog/:id" element={<BlogDetails/>}/>
       <Route path="/dashboard" element={<Dashboard/>}/>
       <Route path='/update-blog/:id' element={<UpdateBlog/>}/>
     </Routes>
